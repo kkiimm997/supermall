@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "908598",
+      "name": "选择",
+      "font_class": "xuanze",
+      "unicode": "e6ac",
+      "unicode_decimal": 59052
+    },
+    {
+      "icon_id": "908497",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "9553520",
+      "name": "HTSCIT_客服",
+      "font_class": "kefu",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "10468843",
+      "name": "商店",
+      "font_class": "icon-test",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
       "icon_id": "689262",
       "name": "类目 品类 分类 类别",
       "font_class": "leimupinleifenleileibie",

@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <div><home-swiper></home-swiper></div>
-    <main-tab-bar></main-tab-bar>
+    <keep-alive exclude="Detail"><router-view/></keep-alive>
+    <main-tab-bar v-if="this.$route.meta.showTab"></main-tab-bar>
   </div>
 </template>
 

@@ -33,7 +33,7 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper,{
         click:true,
         tap:true,
-        //是否实时监听
+        //是否实时监听滚动位置
         probeType:this.probeType,
         //是否允许下拉加载
         pullUpLoad:this.pullUpLoad

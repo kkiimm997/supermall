@@ -21,14 +21,22 @@ export default {
       }
     }
   },
+  data(){
+    return {
+      count:0
+    }
+  },
   components:{
     Swiper,
     SwiperItem
   },
   methods:{
     ImageLoad(){
-      // console.log('轮播图图片加载完了');
+      this.count += 1
+      if(this.count === this.banner.length){
       this.$emit('swiperImageLoad')
+      console.log('轮播图图片加载完了');
+      }
     }
   }
 }

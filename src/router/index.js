@@ -13,21 +13,41 @@ const routes = [
   },
   {
     path:'/home',
-    component: Home
+    component: Home,
+    meta:{
+      showTab:true
+    }
   },
   {
     path:'/category',
-    component: () => import ('../views/category/Category')
+    component: () => import ('../views/category/Category'),
+    meta:{
+      showTab:true
+    }
   },
   {
     path:'/profile',
-    component: () => import ('../views/profile/Profile')
+    component: () => import ('../views/profile/Profile'),
+    meta:{
+      showTab:true
+    }
   },
   {
     path:'/cart',
-    component: () => import ('../views/cart/Cart')
+    component: () => import ('../views/cart/Cart'),
+    meta:{
+      showTab:true
+    }
   },
+  {
+    path:'/detail/:iid',
+    component:() => import ('../views/detail/Detail'),
+    meta:{
+      showTab:false
+    }
+  }
 ]
+//创建路由实例
 const router = new VueRouter({
   routes,
   mode: 'history'
