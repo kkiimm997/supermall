@@ -5,21 +5,21 @@
 </template>
 
 <script>
-
 export default {
-  name:"TabBar"
+
 }
 </script>
-  
-<style>
-#tab-bar{
-  display: flex;
-  width: 100%;
-  background-color: #f6f6f6;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  
-}
 
+<style scoped>
+  #tab-bar{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    height: 49px;
+    background-color: #f6f6f6;
+  }
+  
 </style>

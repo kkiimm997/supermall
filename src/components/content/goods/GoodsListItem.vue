@@ -1,82 +1,87 @@
 <template>
-    <div class="goods-item" @click="itemClick">
-      <img :src="showImage" @load="imgLoad">
-      <div class="goods-info">
-        <p>{{goodsItem.title}}</p>
-        <span class="price">{{goodsItem.price}}</span>
-        <span class="collect">{{goodsItem.cfav}}</span>
-      </div>
+<!-- 图片懒加载的地方:src改成v-lazy -->
+  <div class="goods-list-item" @click="listItem">
+    <img v-lazy="showImg" alt="" @load="imageLoad">
+    <div class="goods-list-item-text">
+      <p class="title">{{goodsItem.title}}</p>
+      <span class="price">{{goodsItem.price}}</span>
+      <span class="collect">{{goodsItem.cfav}}</span>
     </div>
- 
+  </div>
 </template>
 
 <script>
-export default {
-  name: "GoodsListItem",
-  props: {
-    goodsItem:{
-      type: Object,
-      default(){
-        return {}
+  export default {
+    props:{
+      goodsItem:{
+        type:Object,
+        default(){
+          return {}
+        }
+      }
+    },
+    computed:{
+      showImg(){
+        return  this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img 
+      }
+    },
+    methods:{
+      // 1、发送事件总线，当图片每加载一次就发送一次
+      imageLoad(){
+      this.$bus.$emit('itemImageLoad')
+      // console.log('----');
+      },
+      // 2、点击跳转详情页
+      listItem(){
+        this.$router.push('/detail/' + (this.goodsItem.iid || this.goodsItem.item_id))
+        //this.goodsItem.item_id为detail页面的推荐图的id获取，但是那些图目前还没数据，因此无法跳转渲染页面
+        // console.log(this.goodsItem);
       }
     }
-  },
-  methods:{
-    
-    imgLoad(){
-      // console.log('图片加载成功');
-      this.$bus.$emit('itemImageLoad')
-    },
-    itemClick(){
-      this.$router.push('/detail' + '/'+this.goodsItem.iid)
-    }
-  },
-  computed:{
-    showImage(){
-      return this.goodsItem.image || this.goodsItem.show.img
-    }
   }
-}
 </script>
 
 <style scoped>
- .goods-item {
-    padding-bottom: 40px;
+  .goods-list-item{
     position: relative;
     width: 48%;
-    margin-left: 1.3%;
+    padding-bottom: 45px;
+    
   }
-
-  .goods-item img {
-    width: 100%;
-    border-radius: 5px;
-  }
-
-  .goods-info {
-    font-size: 12px;
+  .goods-list-item-text{
     position: absolute;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    overflow: hidden;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    font-size: 12px;
     text-align: center;
   }
-
-  .goods-info p {
+  .goods-list-item img{
+    /* width: 45%; */
+    width: 100%;
+  }
+  .title{
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-bottom: 3px;
   }
-
-  .goods-info .price {
-    color: pink;
-    margin-right: 20px;
+  .price,.collect{
+    margin: 0 10px;
   }
-
-  .goods-info .collect {
+  .price{
+    color: red;
+  }
+  .collect{
     position: relative;
   }
-
-
+  .collect::before{
+    position: absolute;
+    top: 0;
+    left: -14px;
+    content:'';
+    width: 14px;
+    height: 14px;
+    background: url('~assets/img/common/favor.png');
+    background-size: 14px;
+  }
 </style>

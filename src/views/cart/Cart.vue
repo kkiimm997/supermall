@@ -1,58 +1,55 @@
 <template>
   <div class="cart">
     <nav-bar class="nav-bar">
-      <div slot="center">购物车({{$store.state.cartList.length}})</div>
+      <div slot="center">购物车({{cartLength}})</div>
     </nav-bar>
-    <scroll class="content" ref="scroll">
-      <cart-list></cart-list>
-    </scroll>
-    <cart-bottom-bar></cart-bottom-bar>
+    <cart-list1/>
+    <cart-button-bar class="cart-button-bar"/>
+    <!-- <toast/> -->
   </div>
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar'
-import Scroll from "components/common/scroll/Scroll";
+  // 1、导入其他方法
+  // 导入mapGetters 用来实现组件内的computed和此处getters内方法的互通
+  import {mapGetters} from 'vuex'
 
-import CartList from './children/CartList'
-import CartBottomBar from './children/CartBottomBar'
-export default {
-  name:"Cart",
-  components:{
-    NavBar,
-    CartList,
-    Scroll,
-    CartBottomBar
-  },
- activated(){
-    this.$refs.scroll.scroll.refresh()
-    
- }
-}
+  // 2、导入公共组件
+  import NavBar from 'components/common/navbar/NavBar.vue'
+  // import Toast from '../../components/common/toast/Toast.vue'
+
+  // 3、导入子组件
+  import  CartList1 from './childComps/CartList1'
+  import CartButtonBar from './childComps/CartButtonBar.vue'
+
+  export default {
+    components:{
+      NavBar,
+      CartList1,
+      CartButtonBar,
+      // Toast
+    },
+    computed:{
+      // cartLength(){
+      //   return this.$store.getters.cartLength
+      // }
+      ...mapGetters(['cartLength'])
+    }
+  }
 </script>
 
 <style scoped>
-.nav-bar{
-  background: pink;
-  color: white;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-.cart{
-  
-  height: 100%;
-}
-.content{
-  position: absolute;
-  top: 44px;
-  bottom: 89px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: 99;
-  background: white;
-}
-
+  .cart{
+    height: 100vh;
+  }
+  .nav-bar{
+    color: #fff;
+    background-color: var(--color-tint);
+  }
+  .cart-button-bar{
+    width: 100%;
+    position: fixed;
+    bottom: 49px;
+    background-color: #eee;
+  }
 </style>

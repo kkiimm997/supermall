@@ -1,22 +1,32 @@
 import Vue from 'vue'
 import App from './App.vue'
-// 导入路由对象对象
-import router from './router'
-//导入vuex
-import store from './store'
+import router from './router/index'
+import store from './store/index'
+import Toast from 'components/common/toast' //导入toast的index.js
+import FastClick from 'fastclick' //导入解决300ms延时的fastclick插件
+import VueLazyLoad from 'vue-lazyload' //导入图片懒加载的插件
 
-import FastClick from 'fastclick'
+Vue.use(Toast) //安装Toast插件，实际是调用内部的install函数
+Vue.use(VueLazyLoad, {
+        // perLoad: 1.3,
+        // error: require(),
+        loading: require('assets/img/common/placeholder.png'),
+        // attempt: 1
+    }) //安装VueLazyLoad 插件
 
-import toast from 'components/common/toast'
-Vue.config.productionTip = false
-//事件总线bus传输图片加载后刷新的事件!!!用于非父子关系的关联事件
-Vue.prototype.$bus = new Vue()
-// 安装toast插件
-Vue.use(toast)
-//解决移动端300ms延迟
+// 调用fastclick插件
 FastClick.attach(document.body)
+
+// 安装VueLazyLoad懒加载插件
+
+
+Vue.config.productionTip = false
+
+// 创建Vue对象实例中加$bus，用来事件总线
+Vue.prototype.$bus = new Vue()
+
 new Vue({
-  render: h => h(App),
-  router,
-  store
+    router,
+    store,
+    render: h => h(App),
 }).$mount('#app')

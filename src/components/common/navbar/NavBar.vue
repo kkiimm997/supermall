@@ -7,25 +7,26 @@
 </template>
 
 <script>
-export default {
-  name:"NavBar"
-}
+  export default {
+
+  }
 </script>
 
 <style scoped>
   .nav-bar{
     display: flex;
+    /* height: 44px; */
     line-height: 44px;
-    height: 44px;
-    
-    box-shadow: 0 1px 1px rgba(100, 100, 100, 0.3);
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(100,100,100,.1);
   }
-  .left,.right{
-    width: 60px;
-    
+  .left,
+  .right{
+    width: 40px;
+    /* background: pink; */
   }
   .center{
-    flex: 1;
-    text-align: center;
+    flex:1;
+    /* background: purple; */
   }
 </style>

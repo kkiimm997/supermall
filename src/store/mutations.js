@@ -1,21 +1,13 @@
+// 1、导入mutation-type的常量
+import { ADD_COUNTER, ADD_TO_CART } from './mutation-type'
+
 export default {
-  //mutations只进行单一的操作
-  addCounter(state, payload){
-    payload.count ++
-  },
-  addToCart(state, payload){
-    payload.checked = true
-    state.cartList.push(payload)
-  },
-  changeCheck(state,itemIndex){
-    state.cartList[itemIndex].checked = !state.cartList[itemIndex].checked
-  },
-  cancelSelectAll(state){
-    //取消全选
-    state.cartList.forEach(item => item.checked = false)
-  },
-  selectAll(state){
-    //全选
-    state.cartList.forEach(item => item.checked = true)
-  }
+    // 1、state内有该商品
+    [ADD_COUNTER](state, payload) {
+        payload.count++
+    },
+    // 2、state内无该商品
+    [ADD_TO_CART](state, payload) {
+        state.cartList.push(payload)
+    }
 }

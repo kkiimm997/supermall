@@ -1,26 +1,25 @@
 <template>
   <div id="app">
-    <keep-alive exclude="Detail"><router-view/></keep-alive>
-    <main-tab-bar v-if="this.$route.meta.showTab"></main-tab-bar>
+    <keep-alive exclude="Detail">
+      <router-view></router-view>
+    </keep-alive>
+    <Main></Main>
   </div>
 </template>
 
 <script>
 
-
-import MainTabBar from '@/components/content/mainTabbar/MainTabBar'
+import Main from 'components/content/main/Main.vue'
 
 export default {
-  
   name: 'App',
   components: {
-    MainTabBar,
-   
+   Main
   }
 }
 </script>
-
 <style>
+  @import 'assets/css/normalize.css';
+  @import 'assets/css/base.css';
 
-@import '../src/assets/css/base.css'
 </style>

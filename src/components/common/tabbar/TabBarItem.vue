@@ -1,51 +1,59 @@
 <template>
- <div id="tab-bar-item" @click="itemClick">
-    <div :class={active:isActive}><slot  name="item-icon"></slot></div>
-    <div :class={active:isActive}><slot  name="item-text"></slot></div>
+<!-- 设置点击事件用于路由跳转 -->
+  <div class="tab-bar-item" @click="itemClick" >
+    <div v-if="!isActive">
+      <slot name="icon-img"></slot>
+    </div>
+    <div v-else>
+      <slot name="icon-img-active"></slot>
+    </div>
+   <div :style="styleIsActive">
+      <slot name="icon-text"></slot>
    </div>
+  </div>
 </template>
 
 <script>
 export default {
-props:{
-  path:String
-},
-data(){
-  return {
-    
+  data(){
+    return{
+      // isActive:false
+    }
+  },
+ props:{
+    path:String,//我们希望从父组件处接收需要跳转的值
+    stylecolor:{
+      type:String,
+      default:'red'
+    }
+ },
+  methods:{
+    itemClick(){
+      if(this.$route.path !== this.path)
+      this.$router.push(this.path)//这个跳转的路径我们希望从上层接收过来
+    }
+  },
+  computed:{
+    isActive(){
+      return this.$route.path.indexOf(this.path) != -1
+    },
+    styleIsActive(){
+      return this.isActive ? {color:this.stylecolor} : {}
+    }
   }
-},
-methods: {
-  itemClick(){
-    console.log(this.path);
-   this.$router.push(this.path)
-   
-  }
-},
-computed: {
-  isActive(){
-    
-    return this.$route.path.indexOf(this.path) !== -1
-  }
-}
 }
 </script>
 
-<style>
-  #tab-bar-item{
+<style scoped>
+  .tab-bar-item{
     flex: 1;
-    text-align: center;
-    height: 49px;
     font-size: 14px;
   }
-  #tab-bar-item i{
+  .tab-bar-item img{
     width: 24px;
     height: 24px;
     margin-top: 3px;
-    vertical-align: middle;
     margin-bottom: 2px;
-  }
-  .active{
-    color: red;
+    vertical-align: middle;
   }
 </style>

@@ -1,39 +1,27 @@
-// 防抖函数,解决重复频繁调用问题
-export function debounce(fn, delay = 500) {
-  let timer = null;
-  return function (...args) {
-    if (timer) {
-      clearTimeout(timer);
+// 1、防抖动函数debounce的封装
+export const debounce = function(fn, delay) {
+        let timer = null;
+        return function(...args) {
+            if (timer) {
+                clearTimeout(timer)
+            }
+            timer = setTimeout(() => {
+                fn.apply(this, args)
+            }, delay)
+        }
     }
-    timer = setTimeout(() => {
-      fn.apply(this, args);
-    }, delay);
-  };
-}
-function padLeftZero(str) {
-  return ("00" + str).substr(str.length);
-}
+    // 2、时间戳转换成时间格式
+export const formatTime = date => {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
 
-// 时间格式化
-export function formatDate(date, fmt) {
-  if (/(y+)/.test(fmt)) {
-    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-  }
-
-  let o = {
-    "M+": date.getMonth() + 1,
-    "d+": date.getDate(),
-    "h+": date.getHours(),
-    "m+": date.getMinutes(),
-    "s+": date.getSeconds()
-  };
-
-  for (let k in o) {
-    if (new RegExp(`(${k})`).test(fmt)) {
-      let str = o[k] + "";
-      fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : padLeftZero(str));
+    const formatNumber = n => {
+        n = n.toString()
+        return n[1] ? n : '0' + n
     }
-  }
-
-  return fmt;
+    return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
